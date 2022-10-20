@@ -8,10 +8,18 @@ app.set('view engine', 'ejs');
 app.get("/", function(req, res) {
 
   var today = new Date();
-  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  var day = days[today.getDay()];
+  
+  var options = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  };
 
-  res.render('list', {day: day});
+  var day = today.toLocaleDateString("en-US", options);
+
+  res.render('list', {
+    day: day
+  });
 
 });
 
