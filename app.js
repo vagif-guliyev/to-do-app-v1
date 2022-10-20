@@ -4,6 +4,8 @@ const { application } = require('express');
 
 const app = express();
 
+var newListItems = [];
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
@@ -21,15 +23,16 @@ app.get("/", function(req, res) {
   var day = today.toLocaleDateString("en-US", options);
 
   res.render('list', {
-    day: day
+    day: day,
+    newListItems: newListItems
   });
 
 });
 
 app.post('/', function(req, res) {
-
-  console.log(req.body.listItem);
-  
+  var newListItem = req.body.listItem;
+  newListItems.push(newListItem);
+  res.redirect("/");
 });
 
 app.listen(3000, function(){

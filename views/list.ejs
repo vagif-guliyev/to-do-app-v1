@@ -13,6 +13,12 @@
         <li>Task 1</li>
         <li>Task 2</li>
         <li>Task 3</li>
+
+        <% for (var i=0; i<newListItems.length; i++) { %>
+            <li><%= newListItems[i] %></li>
+         <% } %>
+          
+
     </ul>
 
     <form action="/" method="post">
