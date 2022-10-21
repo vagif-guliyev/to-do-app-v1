@@ -4,7 +4,7 @@ const { application } = require('express');
 
 const app = express();
 
-var newListItems = [];
+let newListItems = ["Task 1", "Task 2", "Task 3"];
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -12,15 +12,15 @@ app.set('view engine', 'ejs');
 
 app.get("/", function(req, res) {
 
-  var today = new Date();
+  let today = new Date();
   
-  var options = {
+  let options = {
     weekday: 'long',
     day: 'numeric',
     month: 'long'
   };
 
-  var day = today.toLocaleDateString("en-US", options);
+  let day = today.toLocaleDateString("en-US", options);
 
   res.render('list', {
     day: day,
@@ -30,7 +30,7 @@ app.get("/", function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  var newListItem = req.body.listItem;
+  let newListItem = req.body.listItem;
   newListItems.push(newListItem);
   res.redirect("/");
 });
