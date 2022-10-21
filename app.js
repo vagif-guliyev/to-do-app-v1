@@ -5,6 +5,7 @@ const { application } = require('express');
 const app = express();
 
 let newListItems = ["Task 1", "Task 2", "Task 3"];
+let workListItems = [];
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -24,7 +25,7 @@ app.get("/", function(req, res) {
   let day = today.toLocaleDateString("en-US", options);
 
   res.render('list', {
-    day: day,
+    listTitle: day,
     newListItems: newListItems
   });
 
@@ -32,8 +33,31 @@ app.get("/", function(req, res) {
 
 app.post('/', function(req, res) {
   let newListItem = req.body.listItem;
-  newListItems.push(newListItem);
-  res.redirect("/");
+
+  if (req.body.list === "Work") {
+    workListItems.push(newListItem);
+    res.redirect("/work");
+  } else {
+    newListItems.push(newListItem);
+    res.redirect("/");
+  }
+});
+
+app.get("/work", function(req, res) {
+  res.render('list', {
+    listTitle: "Work List", 
+    newListItems: workListItems
+  });
+});
+
+app.post("/work", function(req, res) {
+  let newWorkListItem = req.body.listItem;
+  workListItems.push(newWorkListItem);
+  res.redirect("/work");
+});
+
+app.get("/about", function(req, res) {
+  res.render('about');
 });
 
 app.listen(3000, function(){
