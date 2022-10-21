@@ -7,6 +7,7 @@ const app = express();
 let newListItems = ["Task 1", "Task 2", "Task 3"];
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 
